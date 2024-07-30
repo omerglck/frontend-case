@@ -3,14 +3,17 @@ import React from 'react';
 import RootNavigator from './src/navigation/RootNavigator';
 import {Provider} from 'react-redux';
 import store from './src/app';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
-    </Provider>
+    <GestureHandlerRootView>
+      <Provider store={store}>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </Provider>
+    </GestureHandlerRootView>
   );
 };
 

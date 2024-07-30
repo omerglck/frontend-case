@@ -3,8 +3,9 @@ import {SCREEN_NAMES} from '../constants/names';
 
 import TabNavigator from './TabNavigator';
 import DetailScreen from '../screens/detail';
+import {RootStackParamList} from '../types/navigation';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
   return (

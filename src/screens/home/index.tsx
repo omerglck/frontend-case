@@ -1,13 +1,23 @@
-import React, {useEffect} from 'react';
-import {SafeAreaView, View, Text, Dimensions, FlatList} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  FlatList,
+} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import Carousel from 'react-native-reanimated-carousel';
 import {AppDispatch, RootState} from '../../app';
 import {fetchTags} from '../../app/actions/tagsActions';
 import {fetchPromotions} from '../../app/actions/promotionsActions';
-import TagItem from '../../components/home/tagItem';
-import PromotionCard from '../../components/home/PromotionCard';
-import {styles} from './style';
+import TagItem from '../../components/home/tagItem/index';
 import Header from '../../components/home/header';
+import PromotionCard from '../../components/home/promotionCard';
+import {styles} from './style';
+import Spinner from '../../components/ui/spinner';
+import Error from '../../components/ui/error';
 
 const {width: viewportWidth} = Dimensions.get('window');
 
@@ -17,33 +27,36 @@ const HomeScreen = () => {
   const promotions = useSelector(
     (state: RootState) => state.promotions.promotions,
   );
+
   const status = useSelector((state: RootState) => state.tags.status);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     dispatch(fetchTags());
     dispatch(fetchPromotions());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (status === 'succeeded') {
-      console.log('Tags List:', tags);
-    }
-  }, [status, tags]);
-
   const renderTagItem = ({item}: {item: any}) => (
     <TagItem iconUrl={item.IconUrl} name={item.Name} />
   );
 
-  const renderPromotionItem = ({item}: {item: any}) => (
-    <PromotionCard promotion={item} />
+  const renderPromotionItem = ({item, index}: {item: any; index: number}) => (
+    <View
+      style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        transform: [{scale: index === activeIndex ? 1 : 0.8}],
+        opacity: index === activeIndex ? 1 : 0.5,
+      }}>
+      <PromotionCard promotion={item} />
+    </View>
   );
 
   return (
     <SafeAreaView style={styles.container}>
       <Header />
       <View style={styles.listContainer}>
-        {status === 'loading' && <Text>Loading...</Text>}
-        {status === 'failed' && <Text>Failed to load tags</Text>}
+        {status === 'loading' && <Spinner />}
         {status === 'succeeded' && (
           <FlatList
             showsHorizontalScrollIndicator={false}
@@ -57,14 +70,23 @@ const HomeScreen = () => {
         )}
       </View>
       <View style={styles.promotionListContainer}>
-        {/* <Carousel
+        <Carousel
           data={promotions}
           renderItem={renderPromotionItem}
-          sliderWidth={viewportWidth}
-          itemWidth={viewportWidth * 0.8}
-          layout={'default'}
-          keyExtractor={item => item.Id.toString()}
-        /> */}
+          width={viewportWidth * 0.9}
+          onSnapToItem={index => setActiveIndex(index)}
+        />
+        <View style={styles.paginationContainer}>
+          {promotions.map((_, index) => (
+            <View
+              key={index}
+              style={[
+                styles.paginationDot,
+                index === activeIndex ? styles.activeDot : styles.inactiveDot,
+              ]}
+            />
+          ))}
+        </View>
       </View>
     </SafeAreaView>
   );

@@ -4,14 +4,12 @@ import {Promotion} from '../../types/apiResponses';
 
 interface PromotionsState {
   promotions: Promotion[];
-
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
 
 const initialState: PromotionsState = {
   promotions: [],
-
   status: 'idle',
   error: null,
 };

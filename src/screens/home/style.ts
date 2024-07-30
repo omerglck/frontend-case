@@ -6,43 +6,33 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   listContainer: {
-    width: '100%',
-    marginHorizontal: 15,
-    marginVertical: 20,
-  },
-
-  separator: {
-    width: 10,
+    paddingVertical: 10,
   },
   flatListContent: {
     paddingHorizontal: 10,
   },
-
+  separator: {
+    width: 10,
+  },
   promotionListContainer: {
     flex: 1,
-    width: '100%',
-    padding: 20,
-  },
-  promotionItem: {
-    flexDirection: 'row',
+    paddingVertical: 10,
     alignItems: 'center',
-    padding: 10,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 1,
-    marginBottom: 10,
+    justifyContent: 'center',
   },
-  promotionImage: {
-    width: 50,
-    height: 50,
-    marginRight: 10,
+  paginationContainer: {
+    flexDirection: 'row',
   },
-  promotionText: {
-    fontSize: 16,
-    color: '#000',
+  paginationDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginHorizontal: 5,
+  },
+  activeDot: {
+    backgroundColor: 'rgba(0, 0, 0, 0.92)',
+  },
+  inactiveDot: {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
 });

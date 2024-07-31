@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  Dimensions,
-  StyleSheet,
-  FlatList,
-} from 'react-native';
+import {SafeAreaView, View, Dimensions, FlatList} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Carousel from 'react-native-reanimated-carousel';
 import {AppDispatch, RootState} from '../../app';
@@ -17,7 +10,6 @@ import Header from '../../components/home/header';
 import PromotionCard from '../../components/home/promotionCard';
 import {styles} from './style';
 import Spinner from '../../components/ui/spinner';
-import Error from '../../components/ui/error';
 
 const {width: viewportWidth} = Dimensions.get('window');
 
